@@ -13,11 +13,11 @@ const {
   resendOTP
 } = require("../controllers/user.js");
 const { isLoggedIn } = require("../middleware/auth.js");
-const upload = require("../middleware/multer.js");
+const { upload, handleMulterError } = require("../middleware/multer.js");
 const router = express.Router();
 
 // Public routes
-router.post("/register", upload.single("profile"), registerUser);
+router.post("/register", upload.single("profile"), handleMulterError, registerUser);
 router.post("/login", logInUser);
 router.post("/verify-otp", verifyOTP);
 router.post("/resend-otp", resendOTP);
@@ -29,7 +29,7 @@ router.get("/verify-email/:token", verifyEmail);
 router.put("/profile", isLoggedIn, upload.fields([
   { name: 'profile', maxCount: 1 },
   { name: 'coverImage', maxCount: 1 }
-]), updateUserProfile);
+]), handleMulterError, updateUserProfile);
 router.get("/profile/:userId?", isLoggedIn, getUserProfile);
 router.post("/send-verification", isLoggedIn, sendEmailVerification);
 router.put("/notifications", isLoggedIn, updateNotificationSettings);

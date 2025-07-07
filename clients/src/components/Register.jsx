@@ -27,19 +27,40 @@ const Register = () => {
   const handleChange = (e) => {
     if (e.target.name === 'profile') {
       const file = e.target.files[0];
-      setFormData({
-        ...formData,
-        profile: file,
-      });
       
-      // Create preview
+      // Client-side file validation
       if (file) {
+        // Check file size (5MB limit)
+        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        if (file.size > maxSize) {
+          toast.error('File size too large. Please select an image smaller than 5MB.');
+          e.target.value = ''; // Clear the input
+          return;
+        }
+        
+        // Check file type
+        if (!file.type.startsWith('image/')) {
+          toast.error('Please select a valid image file.');
+          e.target.value = ''; // Clear the input
+          return;
+        }
+        
+        setFormData({
+          ...formData,
+          profile: file,
+        });
+        
+        // Create preview
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreview(reader.result);
         };
         reader.readAsDataURL(file);
       } else {
+        setFormData({
+          ...formData,
+          profile: null,
+        });
         setPreview(null);
       }
     } else {
@@ -77,7 +98,13 @@ const Register = () => {
       // Extract the error message properly
       let message = 'Registration failed. Please try again.';
       
-      if (error.response?.data?.message) {
+      if (error.response?.data?.errorType === 'FILE_TOO_LARGE') {
+        message = 'Profile image is too large. Please upload an image smaller than 5MB.';
+      } else if (error.response?.data?.errorType === 'TOO_MANY_FILES') {
+        message = 'Too many files selected. Please select only one profile image.';
+      } else if (error.response?.data?.errorType === 'VALIDATION_ERROR') {
+        message = error.response.data.message || 'Invalid file format. Please upload an image file.';
+      } else if (error.response?.data?.message) {
         message = error.response.data.message;
       } else if (error.response?.data) {
         // Handle cases where the entire response.data is a string
