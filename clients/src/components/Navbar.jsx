@@ -109,7 +109,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
-              className="text-gray-700 hover:text-indigo-600 focus:outline-none focus:text-indigo-600 p-2"
+              className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-none focus:text-indigo-600 dark:focus:text-indigo-400 p-2"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMenuOpen ? (
@@ -125,10 +125,10 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-gray-700">
               <Link
                 to="/"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-slate-700"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
@@ -138,33 +138,36 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/create-post"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-slate-700"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Create Post
                   </Link>
                   <Link
                     to="/profile"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-slate-700"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Profile
                   </Link>
-                  <div className="px-3 py-2 flex items-center space-x-3">
-                    {user?.profile && (
-                      <img
-                        src={user.profile}
-                        alt={user.name}
-                        className="w-8 h-8 rounded-full object-cover border-2 border-gray-200"
-                      />
-                    )}
-                    <span className="text-gray-700 text-sm font-medium">
-                      {user?.name}
-                    </span>
+                  <div className="px-3 py-2 flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      {user?.profile && (
+                        <img
+                          src={user.profile}
+                          alt={user.name}
+                          className="w-8 h-8 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600"
+                        />
+                      )}
+                      <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">
+                        {user?.name}
+                      </span>
+                    </div>
+                    <ThemeToggle />
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50"
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                   >
                     Logout
                   </button>
@@ -173,7 +176,7 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/login"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-slate-700"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Login
@@ -185,6 +188,9 @@ const Navbar = () => {
                   >
                     Sign Up
                   </Link>
+                  <div className="px-3 py-2 flex justify-end">
+                    <ThemeToggle />
+                  </div>
                 </>
               )}
             </div>

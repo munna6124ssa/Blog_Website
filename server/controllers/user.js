@@ -9,10 +9,17 @@ const { generateOTP, generateOTPExpiration, isOTPExpired, isValidOTPFormat } = r
 
 const registerUser = async (req, res) => {
   try {
+    console.log('Registration attempt:', { 
+      hasName: !!req.body.name, 
+      hasEmail: !!req.body.email, 
+      hasPassword: !!req.body.password 
+    });
+
     const { name, password, email, age, gender } = req.body;
     
     // Validation
     if (!name?.trim() || !email?.trim() || !password?.trim()) {
+      console.log('Validation failed: Missing required fields');
       return res.status(400).json({ 
         success: false,
         message: "Name, email, and password are required" 
@@ -22,12 +29,15 @@ const registerUser = async (req, res) => {
     // Check if user already exists
     const isUser = await User.findOne({ email });
     if (isUser) {
+      console.log('User already exists:', email);
       return res.status(400).json({ 
         success: false,
         message: "User already exists with this email" 
       });
     }
 
+    console.log('Creating new user...');
+    
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
@@ -43,6 +53,7 @@ const registerUser = async (req, res) => {
         const response = await cloudinaryUplaod(req.file.path);
         profileUrl = response.url;
       } catch (uploadError) {
+        console.log('Profile upload failed:', uploadError.message);
         // Continue without profile image if upload fails
       }
     }
@@ -51,6 +62,8 @@ const registerUser = async (req, res) => {
     const otp = generateOTP();
     const otpExpires = generateOTPExpiration();
 
+    console.log('Creating user in database...');
+    
     // Create new user
     const newUser = await User.create({
       name,
@@ -65,10 +78,14 @@ const registerUser = async (req, res) => {
       emailOTPExpires: otpExpires,
     });
 
+    console.log('User created, sending OTP email...');
+
     // Send OTP email
     try {
       await emailService.sendVerificationOtpEmail(email, name, otp);
+      console.log('OTP email sent successfully');
     } catch (emailError) {
+      console.log('Email sending failed:', emailError.message);
       // If email fails, still create user but let them know
       const user = await User.findById(newUser._id).select("-password -emailOTP");
       return res.status(201).json({ 
@@ -81,6 +98,7 @@ const registerUser = async (req, res) => {
 
     // Return user without password and OTP
     const user = await User.findById(newUser._id).select("-password -emailOTP");
+    console.log('Registration completed successfully');
     return res.status(201).json({ 
       success: true,
       message: "User registered successfully. Please check your email for OTP verification.", 
@@ -88,6 +106,7 @@ const registerUser = async (req, res) => {
       emailSent: true
     });
   } catch (error) {
+    console.error('Registration error:', error);
     return res.status(500).json({ 
       success: false,
       message: "Internal server error during registration",
