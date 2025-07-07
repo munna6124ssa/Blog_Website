@@ -8,5 +8,11 @@ const config = {
   }
 };
 
-const environment = import.meta.env.MODE || 'development';
+// Better environment detection
+const environment = import.meta.env.MODE || 
+                   (window.location.hostname === 'localhost' ? 'development' : 'production');
+
+console.log('Environment detected:', environment);
+console.log('API URL:', config[environment].API_BASE_URL);
+
 export default config[environment];
