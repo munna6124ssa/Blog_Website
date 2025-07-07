@@ -10,7 +10,6 @@ const isLoggedIn = async (req, res, next) => {
     req.user = isUser;
     next();
   } catch (error) {
-    console.error("Error in isLoggedIn");
     return res.status(500).json(error.message);
   }
 };

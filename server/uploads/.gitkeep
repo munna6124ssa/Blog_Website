@@ -1,0 +1,5 @@
+# Uploads Directory
+
+This directory is used for temporary file storage during upload processing.
+
+Files uploaded here are automatically processed and moved to Cloudinary for permanent storage.
