@@ -10,8 +10,17 @@ const app = express();
 
 connectDb();
 
-// Middleware
-app.use(cors());
+// Middleware - CORS configuration
+app.use(cors({
+    origin: [
+        'http://localhost:5173', 
+        'http://localhost:3000',
+        'https://blog-website-frontend.onrender.com'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,22 +30,6 @@ app.use("/api/post",postRouter);
 app.use("/api/email",emailRouter);
 
 const PORT = process.env.PORT || 5000;
-
-// CORS configuration for production
-app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'https://blog-website-frontend-s1r8.onrender.com'
-    ],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-// Routes
-app.use("/api/user", userRouter);
-app.use("/api/post", postRouter);
-app.use("/api/email", emailRouter);
 
 // Health check endpoint
 app.get('/', (req, res) => {

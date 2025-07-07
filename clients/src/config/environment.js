@@ -1,18 +1,12 @@
-// Environment configuration for different deployment environments
+// Environment configuration using Vite environment variables
 const config = {
-  development: {
-    API_BASE_URL: 'http://localhost:3001/api'
-  },
-  production: {
-    API_BASE_URL: 'https://blog-website-backend-5neq.onrender.com/api'
-  }
+  API_BASE_URL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
+  APP_NAME: import.meta.env.VITE_APP_NAME || 'BlogSphere',
+  NODE_ENV: import.meta.env.MODE || 'development'
 };
 
-// Better environment detection
-const environment = import.meta.env.MODE || 
-                   (window.location.hostname === 'localhost' ? 'development' : 'production');
+console.log('Environment:', import.meta.env.MODE);
+console.log('API URL:', config.API_BASE_URL);
+console.log('App Name:', config.APP_NAME);
 
-console.log('Environment detected:', environment);
-console.log('API URL:', config[environment].API_BASE_URL);
-
-export default config[environment];
+export default config;

@@ -1,11 +1,12 @@
 services:
   # Backend Service
   - type: web
-    name: blog-backend
+    name: blog-website-backend
     env: node
     plan: free
-    buildCommand: cd server && npm install
-    startCommand: cd server && npm start
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -14,11 +15,12 @@ services:
     
   # Frontend Service  
   - type: web
-    name: blog-frontend
+    name: blog-website-frontend
     env: static
     plan: free
-    buildCommand: cd clients && npm install && npm run build
-    staticPublishPath: clients/dist
+    rootDir: clients
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
     routes:
       - type: rewrite
         source: /*
