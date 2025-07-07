@@ -12,11 +12,7 @@ connectDb();
 
 // Middleware - CORS configuration
 app.use(cors({
-    origin: [
-        'http://localhost:5173', 
-        'http://localhost:3000',
-        'https://blog-website-frontend-s1r8.onrender.com'
-    ],
+    origin: true, // Allow all origins for debugging
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -36,6 +32,17 @@ app.get('/', (req, res) => {
     res.json({ 
         success: true, 
         message: 'BlogSphere API is running!',
+        timestamp: new Date().toISOString(),
+        env: process.env.NODE_ENV,
+        port: process.env.PORT || 5000
+    });
+});
+
+// Add a test endpoint
+app.get('/api/test', (req, res) => {
+    res.json({ 
+        success: true, 
+        message: 'API test endpoint working!',
         timestamp: new Date().toISOString()
     });
 });
@@ -44,4 +51,5 @@ app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server is running on port ${PORT}`);
     console.log(`📧 Email service: ${process.env.EMAIL_USER ? 'Configured' : 'Not configured'}`);
     console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🗄️ MongoDB: ${process.env.MONGO_URI ? 'URI provided' : 'No URI'}`);
 });
