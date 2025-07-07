@@ -248,7 +248,15 @@ const emailService = {
   },
 
   // Send email verification
-  async sendVerificationEmail(userEmail, userName, verificationToken, baseUrl = 'http://localhost:5173') {
+  async sendVerificationEmail(userEmail, userName, verificationToken, baseUrl = null) {
+    // Determine the correct base URL based on environment
+    if (!baseUrl) {
+      baseUrl = process.env.FRONTEND_URL || 
+                (process.env.NODE_ENV === 'production' 
+                  ? 'https://blog-website-frontend-s1r8.onrender.com' 
+                  : 'http://localhost:5173');
+    }
+    
     try {
       const transporter = createTransporter();
       if (!transporter) {
@@ -300,7 +308,15 @@ const emailService = {
   },
 
   // Send password reset email
-  async sendPasswordResetEmail(userEmail, userName, resetToken, baseUrl = 'http://localhost:5173') {
+  async sendPasswordResetEmail(userEmail, userName, resetToken, baseUrl = null) {
+    // Determine the correct base URL based on environment
+    if (!baseUrl) {
+      baseUrl = process.env.FRONTEND_URL || 
+                (process.env.NODE_ENV === 'production' 
+                  ? 'https://blog-website-frontend-s1r8.onrender.com' 
+                  : 'http://localhost:5173');
+    }
+    
     try {
       const transporter = createTransporter();
       const template = emailTemplates.passwordReset(userName, resetToken, baseUrl);
