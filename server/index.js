@@ -22,7 +22,16 @@ app.use("/api/email",emailRouter);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+// CORS configuration for production
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production' 
+        ? ['https://your-app-name.onrender.com'] 
+        : ['http://localhost:5173'],
+    credentials: true
+}));
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server is running on port ${PORT}`);
     console.log(`📧 Email service: ${process.env.EMAIL_USER ? 'Configured' : 'Not configured'}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
