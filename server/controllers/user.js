@@ -594,14 +594,14 @@ const verifyOTP = async (req, res) => {
 
     // Send welcome email after successful verification
     try {
-      await emailService.sendWelcomeEmail(email, user.name, 'BlogSite');
+      await emailService.sendWelcomeEmail(email, user.name, 'BlogSphere');
     } catch (emailError) {
       // Don't fail verification if welcome email fails
     }
 
     return res.status(200).json({ 
       success: true,
-      message: "Email verified successfully! Welcome to BlogSite." 
+      message: "Email verified successfully! Welcome to BlogSphere." 
     });
 
   } catch (error) {

@@ -37,20 +37,98 @@ const createTransporter = () => {
 // Email templates
 const emailTemplates = {
   welcome: (name, blogName) => ({
-    subject: `Welcome to ${blogName}!`,
+    subject: `🎉 Welcome to ${blogName}! Your Journey Begins Now`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #333;">Welcome to ${blogName}!</h2>
-        <p>Hi ${name},</p>
-        <p>Thank you for joining our blogging community! We're excited to have you on board.</p>
-        <p>You can now:</p>
-        <ul>
-          <li>Create and publish your own blog posts</li>
-          <li>Like and comment on other posts</li>
-          <li>Build your profile and connect with other bloggers</li>
-        </ul>
-        <p>Happy blogging!</p>
-        <p>Best regards,<br>The ${blogName} Team</p>
+      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 0; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        
+        <!-- Header Section -->
+        <div style="background: rgba(255,255,255,0.95); padding: 40px 30px; text-align: center; border-bottom: 3px solid #667eea;">
+          <div style="background: linear-gradient(45deg, #667eea, #764ba2); width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);">
+            <span style="font-size: 36px; color: white;">✨</span>
+          </div>
+          <h1 style="color: #333; font-size: 28px; margin: 0 0 10px 0; font-weight: 700;">Welcome to ${blogName}!</h1>
+          <p style="color: #666; font-size: 16px; margin: 0; font-weight: 500;">Your blogging adventure starts here</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div style="background-color: #f8f9fa; padding: 40px 30px;">
+          <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 25px;">
+            <h2 style="color: #333; margin: 0 0 15px 0; font-size: 22px; text-align: center;">Hi ${name}! 👋</h2>
+            <p style="color: #666; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: center;">
+              Thank you for joining our amazing blogging community! We're absolutely <strong>thrilled</strong> to have you on board. 
+              Your creative journey begins now! 🚀
+            </p>
+          </div>
+          
+          <!-- Features Section -->
+          <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 25px;">
+            <h3 style="color: #333; margin: 0 0 20px 0; font-size: 20px; text-align: center;">🎯 What You Can Do Now</h3>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+              <!-- Feature 1 -->
+              <div style="flex: 1; min-width: 250px; background: linear-gradient(135deg, #667eea, #764ba2); padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">📝</div>
+                <h4 style="color: white; margin: 0 0 8px 0; font-size: 16px;">Create Amazing Posts</h4>
+                <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0; line-height: 1.4;">Share your thoughts, stories, and expertise with the world</p>
+              </div>
+              
+              <!-- Feature 2 -->
+              <div style="flex: 1; min-width: 250px; background: linear-gradient(135deg, #f093fb, #f5576c); padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">❤️</div>
+                <h4 style="color: white; margin: 0 0 8px 0; font-size: 16px;">Engage & Connect</h4>
+                <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0; line-height: 1.4;">Like, comment, and build meaningful connections</p>
+              </div>
+              
+              <!-- Feature 3 -->
+              <div style="flex: 1; min-width: 250px; background: linear-gradient(135deg, #4facfe, #00f2fe); padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
+                <div style="font-size: 32px; margin-bottom: 10px;">🌟</div>
+                <h4 style="color: white; margin: 0 0 8px 0; font-size: 16px;">Build Your Profile</h4>
+                <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0; line-height: 1.4;">Customize your profile and showcase your personality</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tips Section -->
+          <div style="background: linear-gradient(135deg, #ffecd2, #fcb69f); padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid #ff9a56;">
+            <h3 style="color: #d63384; margin: 0 0 15px 0; font-size: 18px;">💡 Pro Tips for Getting Started</h3>
+            <ul style="color: #8d4f00; margin: 0; padding-left: 20px; line-height: 1.6;">
+              <li style="margin-bottom: 8px;">Complete your profile with a photo and bio</li>
+              <li style="margin-bottom: 8px;">Write your first post about what inspires you</li>
+              <li style="margin-bottom: 8px;">Explore and engage with other creators' content</li>
+              <li style="margin-bottom: 0;">Follow topics and bloggers that interest you</li>
+            </ul>
+          </div>
+          
+          <!-- CTA Section -->
+          <div style="text-align: center; margin: 30px 0;">
+            <div style="background: linear-gradient(45deg, #667eea, #764ba2); padding: 15px 30px; border-radius: 50px; display: inline-block; box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);">
+              <span style="color: white; font-size: 18px; font-weight: 600;">🎉 Ready to Start Blogging? 🎉</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center;">
+          <p style="color: white; margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">
+            Welcome to the ${blogName} family! 🌟
+          </p>
+          <p style="color: rgba(255,255,255,0.9); margin: 0 0 20px 0; font-size: 14px;">
+            We're here to support your creative journey every step of the way.
+          </p>
+          <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; margin-top: 20px;">
+            <p style="color: rgba(255,255,255,0.7); margin: 0; font-size: 12px;">
+              Happy blogging! 🚀<br>
+              <strong>The ${blogName} Team</strong>
+            </p>
+          </div>
+        </div>
+        
+        <!-- Bottom Note -->
+        <div style="background-color: #f8f9fa; padding: 20px; text-align: center;">
+          <p style="color: #6c757d; font-size: 12px; margin: 0;">
+            You're receiving this email because you just joined ${blogName}. We're excited to have you!
+          </p>
+        </div>
       </div>
     `
   }),
@@ -225,7 +303,7 @@ const emailTemplates = {
 // Email service functions
 const emailService = {
   // Send welcome email
-  async sendWelcomeEmail(userEmail, userName, blogName = 'BlogSite') {
+  async sendWelcomeEmail(userEmail, userName, blogName = 'BlogSphere') {
     try {
       const transporter = createTransporter();
       if (!transporter) {

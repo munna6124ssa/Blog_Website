@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import ThemeToggle from './ThemeToggle';
+import BlogLogo from './BlogLogo';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -25,8 +26,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">BlogSphere</h1>
+            <Link to="/" className="flex-shrink-0 flex items-center space-x-2">
+              <BlogLogo className="w-8 h-8" />
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent dark:from-indigo-400 dark:to-purple-400">
+                BlogSphere
+              </h1>
             </Link>
           </div>
 
